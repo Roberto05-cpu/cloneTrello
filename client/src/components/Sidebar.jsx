@@ -7,6 +7,8 @@ const Sidebar = () => {
   const location = useLocation();
   const current = location.pathname;
 
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
   return (
     <div className="bg-blue-200 m-5 h-[95%] rounded-[5px] max-h-screen overflow-y-hidden hidden md:block">
       <div className="p-2 flex items-center gap-1">
@@ -15,6 +17,7 @@ const Sidebar = () => {
           <span className="text-blue-700">Y-</span>Trello
         </h1>
       </div>
+      <p className="text-center font-bold text-2xl">Mr {user?.name}</p>
       <ul className="mt-10 flex flex-col gap-10 p-5 font-bold">
         <li
           className={`flex gap-2 items-center ${

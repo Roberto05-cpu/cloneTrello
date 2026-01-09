@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema(
   {
@@ -19,6 +19,12 @@ const cardSchema = new mongoose.Schema(
       required: true,
     },
 
+    boardId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "board",
+      required: true,
+    },
+
     order: {
       type: Number,
       required: true,
@@ -30,6 +36,6 @@ const cardSchema = new mongoose.Schema(
   }
 );
 
-const cardModel = mongoose.model('card', cardSchema)
+const cardModel = mongoose.model("card", cardSchema);
 
-module.exports = cardModel
+module.exports = cardModel;

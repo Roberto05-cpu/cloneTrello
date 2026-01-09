@@ -10,7 +10,7 @@ const Dashboard = () => {
     <div className='max-w-full overflow-x-auto max-h-screen overflow-y-auto'>
         <Routes>
             <Route path='/dashboard' element={<HomeDashboard/>} />
-            {/*<Route path='/dashboard_newBoard' element={<NewBoard/>} />*/}
+            <Route path='/dashboard/board/:boardId' element={<NewBoard/>} />
             <Route path='/dashboard_card_details' element={<CardHistory/>} />
         </Routes>
     </div>

@@ -17,6 +17,7 @@ app.use('/user', require('./routes/userRoute'))
 app.use('/board', require('./routes/boardroute'))
 app.use('/list', require('./routes/listRoute'))
 app.use('/card', require('./routes/cardRoute'))
+app.use('/dashboard', require('./routes/dashboardRoute'))
 
 // connecter la base de donnees
 connectDB()
