@@ -59,7 +59,7 @@ const Sidebar = () => {
             <button onClick={logOut}>Deconnexion</button>
         </li>
       </ul>
-      <div className=" p-3 mt-20 text-center text-[12px] opacity-75">
+      <div className=" p-3 mt-16 text-center text-[12px] opacity-75">
         {/*<div className=" w-[90%] h-[200px] bg-gray-600"></div>*/}© 2025
         YTrello — Tous droits réservés.
       </div>

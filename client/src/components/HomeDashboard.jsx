@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BarChart3, Gauge, Target, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import RepartitionBoard from "./RepartitionBoard";
+import { CardContext } from "../Context/CardContext";
 
 const HomeDashboard = () => {
   const navigate = useNavigate();
   const [showImputBoard, setShowImputBoard] = useState(false);
   const [titleBoard, setTitleBoard] = useState("");
   const [statsOverview, setStatsOverview] = useState({});
+
+  const { cards, loading, error } = useContext(CardContext);
 
   const getStatsOverview = async () => {
     try {
@@ -45,7 +48,7 @@ const HomeDashboard = () => {
       )
       .then((response) => {
         console.log("Board créé avec succès", response.data);
-        const board = response.data.board
+        const board = response.data.board;
         setTitleBoard("");
         alert("Board created successfully!");
         setShowImputBoard(false);
@@ -108,7 +111,7 @@ const HomeDashboard = () => {
           <p className="text-center mt-5 font-bold text-3xl">90%</p>
         </div>
       </div>
-      <RepartitionBoard/>
+      <RepartitionBoard />
       <div className="mt-5">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-2xl">Details Cards</h2>
@@ -121,38 +124,32 @@ const HomeDashboard = () => {
         </div>
         <table className="w-full text-left mt-3">
           <thead>
-            <tr className="border-b border-blue-800">
-              <th className="py-3">Order</th>
-              <th className="py-3">Card</th>
-              <th className="py-3">List</th>
-              <th className="py-3">Board</th>
+            <tr>
+              <th className="border px-2 py-1 text-left">Titre</th>
+              <th className="border px-2 py-1 text-left">Description</th>
+              <th className="border px-2 py-1 text-left">Board</th>
+              <th className="border px-2 py-1 text-left">Liste</th>
+              <th className="border px-2 py-1 text-left">Ordre</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-blue-800/50">
-              <td className="py-3 font-medium">0</td>
-              <td className="py-3">Aller a la salle</td>
-              <td className="py-3">A faire</td>
-              <td className="py-3">Mon Physique</td>
-            </tr>
-            <tr className="border-b border-blue-800/50">
-              <td className="py-3 font-medium">0</td>
-              <td className="py-3">Aller a la salle</td>
-              <td className="py-3">A faire</td>
-              <td className="py-3">Mon Physique</td>
-            </tr>
-            <tr className="border-b border-blue-800/50">
-              <td className="py-3 font-medium">0</td>
-              <td className="py-3">Aller a la salle</td>
-              <td className="py-3">A faire</td>
-              <td className="py-3">Mon Physique</td>
-            </tr>
-            <tr className="border-b border-blue-800/50">
-              <td className="py-3 font-medium">0</td>
-              <td className="py-3">Aller a la salle</td>
-              <td className="py-3">A faire</td>
-              <td className="py-3">Mon Physique</td>
-            </tr>
+            {
+              cards.slice(0, 4)
+               .map((card) => (
+              <tr className="odd:bg-gray-50">
+                <td className="border px-2 py-1 align-top">{card.title}</td>
+                <td className="border px-2 py-1 align-top">
+                  {card.description}
+                </td>
+                <td className="border px-2 py-1 align-top">
+                  {card.boardTitle}
+                </td>
+                <td className="border px-2 py-1 align-top">
+                  {card.listTitle}
+                </td>
+                <td className="border px-2 py-1 align-top">{card.order}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
