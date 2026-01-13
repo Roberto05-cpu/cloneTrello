@@ -6,11 +6,11 @@ const listModel = require("../models/listModel");
 const createCardController = async (req, res) => {
   try {
     // entree et validation du titre, description et listId de la carte
-    const { title, description, listId } = req.body;
-    if (!title || !listId) {
+    const { title, description, listId , boardId} = req.body;
+    if (!title || !description || !listId) {
       return res.status(400).send({
         success: false,
-        message: "Le titre et l'identifiant de la liste sont requis",
+        message: "Le titre, la description et l'identifiant de la liste sont requis",
       });
     }
 
@@ -41,6 +41,7 @@ const createCardController = async (req, res) => {
       title,
       description,
       listId,
+      boardId,
       order: newOrder,
     });
 
@@ -57,6 +58,30 @@ const createCardController = async (req, res) => {
     });
   }
 };
+
+const getCardByBoardController = async (req, res) => {
+  try {
+    const { boardId } = req.params;
+
+    const board = await boardModel.findById(boardId);
+    if (!board || board.owner.toString() !== req.user.id) {
+      return res.status(403).send({ success: false });
+    }
+
+    const cards = await cardModel.find({ boardId });
+    res.status(200).send({
+      success: true,
+      message: "Cartes récupérées avec succès",
+      cards,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Erreur lors de la recuperation des cartes d'un board. API",
+    });
+  }
+}
 
 // recuperer les cartes d'une liste
 const getCardsByListController = async (req, res) => {
@@ -204,6 +229,7 @@ const deleteCardController = async (req, res) => {
 
 module.exports = {
   createCardController,
+  getCardByBoardController,
   getCardsByListController,
   updateCardController,
   deleteCardController

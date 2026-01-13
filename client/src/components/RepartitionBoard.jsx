@@ -55,7 +55,7 @@ const RepartitionBoard = () => {
         {allBoards.length > 0 ? (
           allBoards.map((board) => (
             <div onClick={() => navigate(`/dashboard/board/${board._id}`)} className="w-[200px] h-[100px] cursor-pointer shadow shadow-blue-200 rounded-[10px]">
-              <h3 className="text-center p-2 text-blue-500 font-bold text-[16px]">
+              <h3 className="text-center text-blue-500 font-bold text-[16px]">
                 {board.title}
               </h3>
               <p className="text-center p-2">

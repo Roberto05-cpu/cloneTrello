@@ -1,11 +1,14 @@
 const express = require('express')
 const { authMiddleware } = require('../middlewares/authmiddleware')
-const { createCardController, getCardsByListController, updateCardController, deleteCardController } = require('../controllers/cardController')
+const { createCardController, getCardsByListController, updateCardController, deleteCardController, getCardByBoardController } = require('../controllers/cardController')
 
 const router = express.Router()
 
 // creer une carte
 router.post('/create-card', authMiddleware, createCardController)
+
+// recuperer toutes les cartes du board
+router.get('/get-cards-by-board/:boardId', authMiddleware, getCardByBoardController)
 
 // recuperer les cartes d'une liste
 router.get('/get-cards/:listId', authMiddleware, getCardsByListController)
